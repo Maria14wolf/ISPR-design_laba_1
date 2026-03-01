@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Semantic Network & Semantic Analysis</title>
+
+    <!-- Google Charts Loader -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {packages:['wordtree']});
+        google.charts.setOnLoadCallback(drawSemanticNetwork);
+
+        // ===============================
+        // 1. SEMANTIC NETWORK (COURSES)
+        // ===============================
+        function drawSemanticNetwork() {
+
+            var data = google.visualization.arrayToDataTable(
+                [['Phrases'],
+                 ['First course includes Computer Science'],
+                 ['First course includes Mathematics'],
+                 ['First course includes Physics'],
+
+                 ['Computer Science includes Programming Basics'],
+                 ['Computer Science includes Algorithms'],
+                 ['Computer Science includes Computer Architecture'],
+
+                 ['Second course includes Databases'],
+                 ['Second course includes Operating Systems'],
+                 ['Second course includes Software Engineering'],
+
+                 ['Databases include SQL Queries'],
+                 ['Databases include SQL Optimization'],
+                 ['Databases include Database Design'],
+
+                 ['Third course includes Information Systems'],
+                 ['Third course includes Decision Support Systems'],
+                 ['Third course includes Artificial Intelligence'],
+
+                 ['Information Systems include Business Analytics'],
+                 ['Information Systems include Data Processing']
+                ]
+            );
+
+            var options = {
+                wordtree: {
+                    format: 'implicit',
+                    word: 'course'
+                }
+            };
+
+            var chart = new google.visualization.WordTree(
+                document.getElementById('semantic_network')
+            );
+
+            chart.draw(data, options);
+        }
+
+        // ===============================
+        // 2. SEMANTIC ANALYSIS FUNCTION
+        // ===============================
+        function drawSemanticAnalysis(keyword) {
+
+            var data = google.visualization.arrayToDataTable(
+                [['Phrases'],
+                 ['Students study Computer Science at university'],
+                 ['Computer systems include hardware and software'],
+                 ['Computer networks are essential in education'],
+                 ['Computer engineering involves programming and SQL applications'],
+                 ['Students learn SQL for database management'],
+                 ['SQL allows querying databases efficiently'],
+                 ['SQL is used in Computer information systems'],
+                 ['Modern Computer applications rely on SQL databases']
+                ]
+            );
+
+            var options = {
+                wordtree: {
+                    format: 'implicit',
+                    word: keyword
+                }
+            };
+
+            var chart = new google.visualization.WordTree(
+                document.getElementById('semantic_analysis')
+            );
+
+            chart.draw(data, options);
+        }
+
+        function analyzeComputer() {
+            drawSemanticAnalysis('Computer');
+        }
+
+        function analyzeSQL() {
+            drawSemanticAnalysis('SQL');
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f6f9;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 600px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4285F4;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #3367d6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Laboratory Work №1</h1>
+    <h2>Semantic Network & Semantic Analysis</h2>
+
+    <!-- =============================== -->
+    <!-- 1. SEMANTIC NETWORK SECTION     -->
+    <!-- =============================== -->
+    <div class="section">
+        <h2>1. Semantic Network of Subjects by Courses</h2>
+        <div id="semantic_network" class="chart-container"></div>
+    </div>
+
+    <!-- =============================== -->
+    <!-- 2. SEMANTIC ANALYSIS SECTION    -->
+    <!-- =============================== -->
+    <div class="section">
+        <h2>2. Semantic Analysis of Educational Text</h2>
+
+        <div class="buttons">
+            <button onclick="analyzeComputer()">Analyze by keyword: Computer</button>
+            <button onclick="analyzeSQL()">Analyze by keyword: SQL</button>
+        </div>
+
+        <div id="semantic_analysis" class="chart-container"></div>
+    </div>
+
+</body>
+</html>
